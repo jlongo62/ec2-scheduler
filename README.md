@@ -7,8 +7,10 @@ Requires: https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.
 
 To deploy your Serverless application, right click the project in Solution Explorer and select *Publish to AWS Lambda*.<br>
 
-You will need to create a Cloud Formation Stack called 'ec2-scheduler'
-You will need to create a S3 Bucket called 'ec2-scheduler'
+You will need to create a S3 Bucket called 'ec2-scheduler' (or whatever you like)<br>
+A Cloud Formation Stack called 'ec2-scheduler' will be created<br>
+Lambdas will be created that are part of the 'ec2-scheduler' Cloud Formation Stack.<br>
+A CloudWatch Rule called UpdateSchedule will be created.<br> 
 
 To view your deployed application open the Stack View window by double-clicking the stack name shown beneath the AWS CloudFormation node in the AWS Explorer tree. 
 
@@ -21,7 +23,7 @@ Examples:<br>
 <b>0 15 ? * * *</b> Every day at 15:00 GMT<br>
 <b>30 15 ? * * *</b> Every day at 15:30 GMT<br>
 
-You can create a rule in CloudWatch, and get a screen where you can enter an expression and it will evaluate it for you.<br>
+You can create a Rule in CloudWatch, and get a screen where you can enter an expression and it will evaluate it for you.<br>
 See: https://stackoverflow.com/questions/47183071/aws-lambda-cron-expression-for-5-minutes-before-each-hour/52599451#52599451
 
 ## AWS Items Created
