@@ -12,7 +12,7 @@ You will need to create a S3 Bucket called 'ec2-scheduler'
 
 To view your deployed application open the Stack View window by double-clicking the stack name shown beneath the AWS CloudFormation node in the AWS Explorer tree. The Stack View also displays the root URL to your published application.
 
-##Configuring EC2 Instances for scheduling
+## Configuring EC2 Instances for scheduling
 Each Instance with an 'ON' or 'OFF' tag will be processed by the ec2-scheduler
 The values follow AWS cron format - this is a special format(as far as I can tell)
 Times are calculated as GMT NOT as your local time.
@@ -24,6 +24,7 @@ Examples:
 You can create a rule in CloudWatch, and get a screen where you can enter an expression and it will evaluate it for you:
 See: https://stackoverflow.com/questions/47183071/aws-lambda-cron-expression-for-5-minutes-before-each-hour/52599451#52599451
 
+## AWS Items Created
 Lambdas can be viewed under AWS Lambda
 Rules can be viewed under CloudWatch|Events|Rules
 Logs can be viewed under CloudWatch|Logs
