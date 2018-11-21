@@ -1,0 +1,146 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Transform" : "AWS::Serverless-2016-10-31",
+  "Description" : "An AWS Serverless Application.",
+
+  "Resources" : {
+
+  "Get" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "EC2ScheduleAgent::EC2ScheduleAgent.Functions::Get",
+        "Runtime": "dotnetcore2.1",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaBasicExecutionRole" ],
+        "Events": {
+          "PutResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+
+	"UpdateSchedule" : {
+        "Type" : "AWS::Lambda::Function",
+        "Properties" : {
+            "Handler" : "EC2ScheduleAgent::EC2ScheduleAgent.Lambdas::UpdateSchedule",
+            "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
+            "Runtime" : "dotnetcore2.1",
+            "MemorySize" : 256,
+            "Timeout" : 30,
+            "Code" : {
+                "S3Bucket" : "",
+                "S3Key" : ""
+            }
+        }
+    },
+
+	"ControlInstance" : {
+        "Type" : "AWS::Lambda::Function",
+        "Properties" : {
+            "Handler" : "EC2ScheduleAgent::EC2ScheduleAgent.Lambdas::ControlInstance",
+            "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
+            "Runtime" : "dotnetcore2.1",
+            "MemorySize" : 256,
+            "Timeout" : 30,
+            "Code" : {
+                "S3Bucket" : "",
+                "S3Key" : ""
+            }
+        }
+    },
+	
+	"LogEvent" : {
+        "Type" : "AWS::Lambda::Function",
+        "Properties" : {
+            "Handler" : "EC2ScheduleAgent::EC2ScheduleAgent.Lambdas::LogEvent",
+            "Role"    : {"Fn::GetAtt" : [ "LambdaRole", "Arn"]},
+            "Runtime" : "dotnetcore2.1",
+            "MemorySize" : 256,
+            "Timeout" : 30,
+            "Code" : {
+                "S3Bucket" : "",
+                "S3Key" : ""
+            }
+        }
+    },
+
+	"UpdateScheduleRule" :	{
+	  "Type" : "AWS::Events::Rule",
+	  "Properties" : {
+		"Description" : "Updates the ON, OFF rules schedules.",
+		"Name" : "UpdateSchedule",
+		"ScheduleExpression" : "rate(2 minutes)",
+		"State" : "ENABLED",
+		"Targets": [{
+		  "Arn": { "Fn::GetAtt": ["UpdateSchedule", "Arn"] },
+		  "Id": "UpdateSchedule"
+		}]
+	  }
+	},
+
+	"InvokeUpdateSchedulePermission": {
+	  "Type": "AWS::Lambda::Permission",
+	  "Properties": {
+		"FunctionName": { "Ref": "UpdateSchedule" },
+		"Action": "lambda:InvokeFunction",
+		"Principal": "events.amazonaws.com"
+	  }
+	},
+
+	"InvokeControlInstancePermission": {
+	  "Type": "AWS::Lambda::Permission",
+	  "Properties": {
+		"FunctionName": { "Ref": "ControlInstance" },
+		"Action": "lambda:InvokeFunction",
+		"Principal": "events.amazonaws.com" 
+	  }
+	},
+
+	"LambdaRole" : {
+        "Type" : "AWS::IAM::Role",
+        "Properties" : {
+          "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Action": [
+                  "sts:AssumeRole"
+                ],
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": [
+                    "lambda.amazonaws.com"
+                  ]
+                }
+              }
+            ]
+          },
+          "ManagedPolicyArns": [
+            "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+            "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+            "arn:aws:iam::aws:policy/service-role/AWSConfigRulesExecutionRole",
+            "arn:aws:iam::aws:policy/CloudWatchEventsFullAccess",
+			"arn:aws:iam::aws:policy/AWSLambdaFullAccess",
+			"arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+          ]
+       }
+    }
+
+
+  },
+
+  "Outputs" : {
+    "ApiURL" : {
+        "Description" : "API endpoint URL for Prod environment",
+        "Value" : { "Fn::Sub" : "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/" }
+    }
+  }
+}

@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/EC2ScheduleAgent/obj
+/EC2ScheduleAgent.Tests/obj
+/EC2ScheduleAgent/bin
+/EC2ScheduleAgent.Tests/bin
