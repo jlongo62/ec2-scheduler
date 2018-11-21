@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EC2ScheduleAgent", "EC2Sche
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EC2ScheduleAgent.Tests", "EC2ScheduleAgent.Tests\EC2ScheduleAgent.Tests.csproj", "{A162C085-9AD8-4C3D-9651-703E6226261C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76C4DD06-8080-44D3-A3E8-45AFB78C5727}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,17 +32,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED768536-8FB5-4F56-8D5B-BFC99AD459CE}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://ravensquest.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = EC2ScheduleAgent\\EC2ScheduleAgent.csproj
-		SccProjectName1 = EC2ScheduleAgent
-		SccLocalPath1 = EC2ScheduleAgent
-		SccProjectUniqueName2 = EC2ScheduleAgent.Tests\\EC2ScheduleAgent.Tests.csproj
-		SccProjectName2 = EC2ScheduleAgent.Tests
-		SccLocalPath2 = EC2ScheduleAgent.Tests
 	EndGlobalSection
 EndGlobal
