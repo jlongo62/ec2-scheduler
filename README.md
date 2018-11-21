@@ -6,8 +6,8 @@ Requires: https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.
 ## Here are some steps to follow from Visual Studio:
 
 To deploy your Serverless application, right click the project in Solution Explorer and select *Publish to AWS Lambda*.<br>
-You will need to create a Cloud Formation Stack called 'ec2-scheduler'
 
+You will need to create a Cloud Formation Stack called 'ec2-scheduler'
 You will need to create a S3 Bucket called 'ec2-scheduler'
 
 To view your deployed application open the Stack View window by double-clicking the stack name shown beneath the AWS CloudFormation node in the AWS Explorer tree. 
